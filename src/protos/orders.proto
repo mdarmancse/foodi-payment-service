@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package orderPackage;
+
+service Orders{
+  rpc updatePaymentStatus(PaymentStatusRequest) returns (PaymentStatusResponse){};
+
+}
+
+message Empty {}
+
+message PaymentStatusRequest {
+  string orderId = 1;
+  string paymentStatus = 2;
+}
+message PaymentStatusResponse {
+  string status = 1;
+  string message = 2;
+}

@@ -1,0 +1,148 @@
+{
+  "openapi": "3.0.3",
+
+  "info": {
+    "title": "Payment Service",
+    "version": "1.0.0"
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+
+
+  "servers": [
+    {
+      "url": "https://foodi-nlb.foodibd.com:5001/payments",
+      "description": "Live Server"
+    },
+    {
+      "url": "http://18.139.92.172:5001/payments",
+      "description": "Staging"
+    },
+    {
+      "url": "http://localhost:2300",
+      "description": "Development"
+    }
+    
+  ],
+
+  "paths": {
+    "/ssl/init": {
+      "post": {
+        "tags": ["SSLCommerz API"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Payment Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentResponses"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+ 
+  },
+  "components": {
+  "schemas": {
+    "PaymentRequest": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string",
+          "example": "10"
+        },
+        "gatewayType": {
+          "type": "string",
+          "example": "SSL"
+        },
+        "paymentType": {
+          "type": "string",
+          "example": "ORDER"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "example": "Bkash"
+        },
+        "paymentReference": {
+          "type": "string",
+          "example": "e9be65a1-5c3b-48f4-8a85-35c00c65eb06"
+        },
+        "successUrl": {
+          "type": "string",
+          "example": "http://localhost:2300/success"
+        },
+        "cancelUrl": {
+          "type": "string",
+          "example": "http://localhost:2300/cancel"
+        },
+        "failureUrl": {
+          "type": "string",
+          "example": "http://localhost:2300/fail"
+        },
+        "customer": {
+          "type": "object",
+          "properties": {
+            "firstName": {
+              "type": "string",
+              "example": "Jalal"
+            },
+            "lastName": {
+              "type": "string",
+              "example": "Uddin"
+            },
+            "email": {
+              "type": "string",
+              "example": "jalauddin@example.com"
+            },
+            "mobileNo": {
+              "type": "string",
+              "example": "01825748596"
+            }
+          }
+        }
+      }
+    },
+      "PaymentResponses": {
+        "type": "object",
+        "properties": {
+
+          "status":{"type":"boolean"},
+          "message":{"type":"string",
+          "example":"success"},
+
+          "data":{
+           "type":"object",
+           "properties":{
+            "gatewayUrl": {"type":"string",
+            "example":"https://sandbox.sslcommerz.com/EasyCheckOut/testcdebdbbe718d0bb22f9d740ece5d487b916"
+           }
+          }
+          }       
+              }
+            }
+          },
+              
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+}
+}

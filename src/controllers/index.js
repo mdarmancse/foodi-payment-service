@@ -1,0 +1,1 @@
+export { initRoutes } from "./initRoutes";

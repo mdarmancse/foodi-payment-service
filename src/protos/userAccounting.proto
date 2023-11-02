@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package userAccountingPackage;
+
+service userAccounting{
+  rpc getUserProfile(UserProfileRequest) returns (UserProfileResponse){};
+  rpc userRewardPoint(RewardPointRequest) returns (RewardPointResponse){};
+  rpc updateSubscriptionPaymentStatus(UpdateSubscriptionPaymentStatusRequest) returns (UpdateSubscriptionPaymentStatusResponse){};
+}
+
+message Empty {}
+
+message UserProfileRequest {
+  int32 userId = 1;
+}
+
+message UserProfileResponse {
+  string id = 1;
+  int32 userId = 2;
+  string firstName = 3;
+  string lastName = 4;
+  string image = 5;
+}
+
+message RewardPointRequest {
+  int32 userId = 1;
+  string totalAmount = 2;
+  string orderId = 3;
+}
+
+message RewardPointResponse {
+  string status = 1;
+  string message = 2;
+}
+
+
+message UpdateSubscriptionPaymentStatusRequest {
+  int32 userId = 1;
+  string subscriptionTypeId = 2;
+
+}
+message UpdateSubscriptionPaymentStatusResponse {
+  string status = 1;
+  string message = 2;
+}
